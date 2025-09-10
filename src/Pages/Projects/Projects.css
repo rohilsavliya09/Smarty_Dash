@@ -1,0 +1,594 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background: linear-gradient(135deg, #0A0E17 0%, #13182A 100%);
+    color: #FFFFFF;
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 400;
+    line-height: 1.6;
+    min-height: 100vh;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(10, 14, 23, 0.8);
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(45deg, #00D4F0, #B84DFF);
+    border-radius: 5px;
+    border: 2px solid #0A0E17;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(45deg, #00C0D9, #A83EE0);
+}
+
+/* Container */
+.PR-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Header info */
+.PR-header-info {
+    text-align: center;
+    margin-bottom: 40px;
+    color: #8B9BBF;
+    font-size: 18px;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Boxes grid */
+.PR-boxes-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 25px;
+    justify-content: flex-start;
+    margin-bottom: 60px;
+}
+
+/* Box */
+.PR-box {
+    width: 150px;
+    height: 150px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    overflow: hidden;
+    position: relative;
+    opacity: 0;
+    transform: translateX(-30px);
+    animation: PR-boxAppear 0.6s forwards;
+}
+
+@keyframes PR-boxAppear {
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.PR-box::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    z-index: -1;
+    background: linear-gradient(45deg, #00D4F0, #B84DFF, #00D4F0);
+    border-radius: 14px;
+    opacity: 0.7;
+}
+
+.PR-box::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(13, 18, 31, 0.85);
+    border-radius: 12px;
+    z-index: -1;
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(0, 212, 240, 0.15);
+}
+
+.PR-box:hover {
+    transform: translateY(-8px) scale(1.03);
+    box-shadow: 0 10px 30px rgba(0, 212, 240, 0.3);
+}
+
+.PR-box:hover::before {
+    opacity: 1;
+    animation: PR-gradientShift 3s linear infinite;
+}
+
+@keyframes PR-gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* Add box */
+.PR-add-box {
+    background: rgba(13, 18, 31, 0.7);
+    font-size: 60px;
+    color: #00D4F0;
+    position: relative;
+    overflow: hidden;
+}
+
+.PR-add-box::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(0, 212, 240, 0.1) 0%, rgba(184, 77, 255, 0.1) 100%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.PR-add-box:hover::after {
+    opacity: 1;
+}
+
+/* Project box specifics */
+.PR-project-box {
+    flex-direction: column;
+    padding: 15px;
+}
+
+.PR-project-title {
+    font-weight: 600;
+    font-size: 16px;
+    text-align: center;
+    margin-bottom: 8px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    color: #00D4F0;
+    text-shadow: 0 0 8px rgba(0, 212, 240, 0.5);
+}
+
+.PR-project-status {
+    font-size: 12px;
+    background: rgba(0, 0, 0, 0.3);
+    padding: 4px 10px;
+    border-radius: 20px;
+    margin-top: 10px;
+    border: 1px solid;
+    font-weight: 500;
+}
+
+.PR-status-idea {
+    color: #B84DFF;
+    border-color: #B84DFF;
+    background: rgba(184, 77, 255, 0.1);
+}
+
+.PR-status-designing {
+    color: #FF5E7D;
+    border-color: #FF5E7D;
+    background: rgba(255, 94, 125, 0.1);
+}
+
+.PR-status-developing {
+    color: #00D4F0;
+    border-color: #00D4F0;
+    background: rgba(0, 212, 240, 0.1);
+}
+
+.PR-status-completed {
+    color: #00F5A0;
+    border-color: #00F5A0;
+    background: rgba(0, 245, 160, 0.1);
+}
+
+/* Modal overlay and modal */
+.PR-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(5, 10, 19, 0.9);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    backdrop-filter: blur(8px);
+}
+
+.PR-modal {
+    background: rgba(13, 18, 31, 0.95);
+    border-radius: 16px;
+    width: 90%;
+    max-width: 600px;
+    max-height: 90vh;
+    overflow-y: auto;
+    padding: 30px;
+    box-shadow: 0 0 40px rgba(0, 212, 240, 0.2);
+    border: 1px solid rgba(0, 212, 240, 0.2);
+    position: relative;
+}
+
+.PR-modal::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(45deg, #00D4F0, #B84DFF, #00D4F0);
+    border-radius: 18px;
+    z-index: -1;
+    opacity: 0.6;
+}
+
+.PR-modal h2 {
+    margin-bottom: 25px;
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 600;
+    font-size: 28px;
+    background: linear-gradient(90deg, #00D4F0 0%, #B84DFF 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    text-shadow: 0 0 15px rgba(184, 77, 255, 0.3);
+}
+
+/* Form */
+.PR-form-group {
+    margin-bottom: 20px;
+}
+
+.PR-form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: #00D4F0;
+    font-size: 16px;
+}
+
+.PR-form-group input,
+.PR-form-group textarea,
+.PR-form-group select {
+    width: 100%;
+    padding: 12px 16px;
+    background: rgba(10, 14, 23, 0.7);
+    border: 1px solid rgba(0, 212, 240, 0.3);
+    border-radius: 8px;
+    font-size: 15px;
+    color: #FFFFFF;
+    font-family: 'Rajdhani', sans-serif;
+    transition: all 0.3s ease;
+}
+
+.PR-form-group input:focus,
+.PR-form-group textarea:focus,
+.PR-form-group select:focus {
+    outline: none;
+    border-color: #00D4F0;
+    box-shadow: 0 0 0 2px rgba(0, 212, 240, 0.3);
+}
+
+.PR-form-group textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+/* Buttons group */
+.PR-button-group {
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+    margin-top: 25px;
+    overflow: hidden;
+    scrollbar-width: none;
+}
+
+/* Hide scrollbar for button group */
+.PR-button-group::-webkit-scrollbar {
+    display: none;
+}
+
+/* Generic button */
+.PR-button-group button,
+.PR-send-btn,
+.PR-delete-btn {
+    padding: 12px 25px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    font-family: 'Orbitron', sans-serif;
+    letter-spacing: 0.5px;
+    transition: all 0.3s ease;
+}
+
+/* Cancel */
+.PR-cancel-btn {
+    background: rgba(255, 94, 125, 0.15);
+    color: #FF5E7D;
+    border: 1px solid rgba(255, 94, 125, 0.4);
+}
+
+.PR-cancel-btn:hover {
+    background: rgba(255, 94, 125, 0.25);
+    box-shadow: 0 0 15px rgba(255, 94, 125, 0.3);
+}
+
+/* Submit */
+.PR-submit-btn {
+    background: linear-gradient(90deg, rgba(0, 212, 240, 0.2) 0%, rgba(184, 77, 255, 0.2) 100%);
+    color: #00D4F0;
+    border: 1px solid rgba(0, 212, 240, 0.4);
+    position: relative;
+    overflow: hidden;
+}
+
+.PR-submit-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: 0.5s;
+}
+
+.PR-submit-btn:hover::before {
+    left: 100%;
+}
+
+.PR-submit-btn:hover {
+    box-shadow: 0 0 20px rgba(0, 212, 240, 0.4);
+}
+
+/* cyber line */
+.PR-cyber-line {
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #00D4F0, #B84DFF, transparent);
+    margin: 25px 0;
+    opacity: 0.6;
+}
+
+/* pulse */
+.PR-pulse {
+    display: block;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #00D4F0;
+    margin-right: 8px;
+    box-shadow: 0 0 0 rgba(0, 212, 240, 0.4);
+    animation: PR-pulse 2s infinite;
+}
+
+@keyframes PR-pulse {
+    0% { box-shadow: 0 0 0 0 rgba(0, 212, 240, 0.7); }
+    70% { box-shadow: 0 0 0 10px rgba(0, 212, 240, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(0, 212, 240, 0); }
+}
+
+/* Delete button (confirm) */
+.PR-delete-btn {
+    background: rgba(255, 94, 125, 0.15);
+    color: #FF5E7D;
+    border: 1px solid rgba(255, 94, 125, 0.4);
+    padding: 8px 14px;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.PR-delete-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 94, 125, 0.2), transparent);
+    transition: 0.5s;
+}
+
+.PR-delete-btn:hover::before {
+    left: 100%;
+}
+
+.PR-delete-btn:hover:enabled {
+    background: rgba(255, 94, 125, 0.25);
+    box-shadow: 0 0 15px rgba(255, 94, 125, 0.3);
+}
+
+.PR-delete-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* Send button */
+.PR-send-btn {
+    background: linear-gradient(90deg, rgba(0, 212, 240, 0.2) 0%, rgba(184, 77, 255, 0.2) 100%);
+    color: #00D4F0;
+    border: 1px solid rgba(0, 212, 240, 0.4);
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-family: 'Orbitron', sans-serif;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.PR-send-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transition: 0.5s;
+}
+
+.PR-send-btn:hover::before {
+    left: 100%;
+}
+
+.PR-send-btn:hover {
+    box-shadow: 0 0 20px rgba(0, 212, 240, 0.4);
+}
+
+.PR-send-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* Spinner for send button */
+.PR-spinner {
+    width: 18px;
+    height: 18px;
+    border: 3px solid rgba(255, 255, 255, 0.25);
+    border-top: 3px solid #fff;
+    border-radius: 50%;
+    animation: PR-spin 1s linear infinite;
+    margin: 0;
+}
+
+@keyframes PR-spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Scroll top button */
+.PR-scroll-top {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: linear-gradient(45deg, #00D4F0, #B84DFF);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+    opacity: 0;
+    transition: all 0.4s ease;
+    z-index: 99;
+    box-shadow: 0 0 20px rgba(0, 212, 240, 0.4);
+    transform: translateY(20px);
+}
+
+.PR-scroll-top.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.PR-scroll-top:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0 25px rgba(184, 77, 255, 0.5);
+}
+
+/* modal scrollbar handling */
+.PR-modal {
+    overflow-x: hidden;
+    overflow-y: auto;
+    scrollbar-width: none;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .PR-boxes-container {
+        justify-content: center;
+    }
+
+    .PR-container .PR-nav-container {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .PR-nav-links {
+        gap: 20px;
+    }
+}
+/* inline email status message */
+.PR-email-message {
+    margin: 12px 0;
+    padding: 10px 14px;
+    border-radius: 8px;
+    font-weight: 600;
+}
+
+.PR-email-message.PR-success {
+    background: rgba(0, 245, 160, 0.12);
+    color: #00F5A0;
+    border: 1px solid rgba(0, 245, 160, 0.18);
+}
+
+.PR-email-message.PR-error {
+    background: rgba(255, 94, 125, 0.08);
+    color: #FF5E7D;
+    border: 1px solid rgba(255, 94, 125, 0.14);
+}
+
+/* Sent preview box */
+.PR-sent-preview {
+    margin-top: 12px;
+    padding: 12px;
+    border-radius: 8px;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.03);
+    color: #cfeefe;
+    line-height: 1.45;
+}
+
+.PR-sent-preview h3 {
+    margin: 0 0 8px 0;
+    font-size: 16px;
+    color: #00D4F0;
+}
+
+/* Ensure preview text wraps and keeps newlines visible */
+.PR-sent-preview p {
+    margin: 6px 0;
+    white-space: pre-wrap;
+}
+
+/* keep spinner alignment */
+.PR-send-btn { min-width: 110px; }

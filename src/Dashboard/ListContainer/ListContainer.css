@@ -1,0 +1,500 @@
+/* ListContainer.css - Option B (Fixed task area with internal scroll) - UPDATED */
+:root {
+  --primary-color: #00D4F0;
+  --primary-light: rgba(0, 212, 240, 0.1);
+  --secondary-color: #B84DFF;
+  --secondary-light: rgba(184, 77, 255, 0.1);
+  --warning-color: #FFA502;
+  --warning-light: rgba(255, 165, 2, 0.1);
+  --danger-color: #FF4757;
+  --danger-light: rgba(255, 71, 87, 0.1);
+  --success-color: #2ED573;
+  --success-light: rgba(46, 213, 115, 0.1);
+  --dark-bg: rgba(13, 18, 31, 0.95);
+  --darker-bg: rgba(8, 12, 22, 0.98);
+  --light-text: #FFFFFF;
+  --light-dim: rgba(255, 255, 255, 0.7);
+  --border-radius: 16px;
+  --border-radius-sm: 8px;
+  --transition: all 0.3s ease;
+  --shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  --shadow-hover: 0 12px 40px rgba(0, 212, 240, 0.2);
+}
+
+/* Reset box-sizing */
+* { box-sizing: border-box; }
+
+/* Container */
+.TMS-list {
+  background: var(--dark-bg);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(0, 212, 240, 0.3);
+  border-radius: var(--border-radius);
+  padding: 20px;
+  margin: 15px;
+  box-shadow: var(--shadow);
+  transition: var(--transition);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 520px;   
+  height: auto;
+  min-width: 280px;
+  overflow: visible;
+  display: flex;
+  flex-direction: column; /* allow children to show internal scroll, not container overflow */
+}
+
+/* top gradient line */
+.TMS-list::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+  opacity: 0.7;
+}
+
+.TMS-list:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-hover);
+  border-color: rgba(184, 77, 255, 0.4);
+}
+
+/* Header */
+.TMS-list-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.TMS-list-title {
+  color: var(--primary-color);
+  font-size: 1.35rem;
+  font-weight: 600;
+  margin: 0;
+  text-shadow: 0 0 10px rgba(0, 212, 240, 0.3);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.TMS-list-title small {
+  color: var(--secondary-color);
+  font-size: 0.8rem;
+  opacity: 0.85;
+  font-weight: 400;
+}
+
+/* Actions */
+.TMS-list-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.TMS-btn {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  color: var(--light-text);
+  padding: 8px 14px;
+  border-radius: var(--border-radius-sm);
+  cursor: pointer;
+  transition: var(--transition);
+  font-size: 0.9rem;
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.TMS-btn:hover { transform: translateY(-1px); background: rgba(255,255,255,0.12); }
+.TMS-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+.TMS-btn-primary {
+  background: linear-gradient(135deg, var(--primary-color), #0099BC);
+  border: none;
+}
+.TMS-btn-primary:hover:not(:disabled) {
+  background: linear-gradient(135deg, #0099BC, var(--primary-color));
+  box-shadow: 0 0 15px rgba(0, 212, 240, 0.25);
+}
+
+.TMS-btn-secondary { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); }
+.TMS-btn-danger { background: linear-gradient(135deg, var(--danger-color), var(--secondary-color)); border: none; }
+.TMS-btn-warning { background: linear-gradient(135deg, var(--warning-color), #FF6348); border: none; }
+.TMS-btn-icon { padding: 8px; min-width: 36px; display: flex; align-items: center; justify-content: center; }
+
+/* TASK LIST (scrollable area) - Option B core */
+.TMS-task-list {
+  flex: 1 1 auto;
+  overflow-y: auto;
+  max-height:auto; /* small internal scroll if needed */
+  padding-right: 8px;
+}
+
+/* Nice webkit scrollbar */
+.TMS-task-list::-webkit-scrollbar { width: 9px; }
+.TMS-task-list::-webkit-scrollbar-thumb {
+  background: rgba(255,255,255,0.06);
+  border-radius: 8px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+
+.TMS-task {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: var(--border-radius-sm);
+  padding: 14px;
+  transition: var(--transition);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.TMS-task:hover {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(0, 212, 240, 0.18);
+  transform: translateX(4px);
+}
+
+.TMS-task-completed { opacity: 0.8; background: rgba(0, 212, 240, 0.03); }
+.TMS-task-completed .TMS-task-content { text-decoration: line-through; }
+
+.TMS-task-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.TMS-task-checkbox { position: relative; margin-top: 2px; }
+.TMS-task-checkbox input[type="checkbox"] { opacity: 0; position: absolute; }
+.TMS-task-checkbox label {
+  display: inline-block; width: 20px; height: 20px; border: 2px solid var(--primary-color);
+  border-radius: 4px; cursor: pointer; position: relative; transition: var(--transition);
+}
+.TMS-task-checkbox input[type="checkbox"]:checked + label { background-color: var(--primary-color); }
+.TMS-task-checkbox input[type="checkbox"]:checked + label::after {
+  content: "✓"; position: absolute; color: white; font-size: 12px; top: 50%; left: 50%; transform: translate(-50%,-50%);
+}
+
+.TMS-task-content {
+  color: var(--light-text);
+  font-size: 1rem;
+  line-height: 1.4;
+  word-break: break-word;
+  padding: 0 8px;
+  flex: 1 1 auto;
+  min-width: 0; /* important so long text doesn't break flex layout */
+}
+
+.TMS-task-actions {
+  display: flex;
+  gap: 8px;
+  flex-shrink: 0;
+  align-items: center;
+  margin-left: 8px;
+}
+
+.TMS-task-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  font-size: 0.8rem;
+  color: var(--light-dim);
+  margin-bottom: 8px;
+}
+
+.TMS-task-date { color: var(--primary-color); display: flex; align-items: center; gap: 6px; }
+.TMS-task-assignee { color: var(--secondary-color); font-weight: 500; display: flex; align-items: center; gap: 6px; }
+
+.TMS-task-timer {
+  color: var(--primary-color);
+  font-size: 0.9rem;
+  font-weight: 500;
+  padding: 6px 12px;
+  background: var(--primary-light);
+  border-radius: 20px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border: 1px solid rgba(0, 212, 240, 0.18);
+}
+.TMS-task-timer.running { animation: pulse 2s infinite; background: linear-gradient(135deg, var(--primary-light), var(--secondary-light)); }
+
+@keyframes pulse {
+  0% { box-shadow: 0 0 5px rgba(0, 212, 240, 0.18); }
+  50% { box-shadow: 0 0 15px rgba(0, 212, 240, 0.35); }
+  100% { box-shadow: 0 0 5px rgba(0, 212, 240, 0.18); }
+}
+
+/* Inputs & Form */
+.TMS-input {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: var(--border-radius-sm);
+  padding: 10px 12px;
+  color: var(--light-text);
+  font-size: 0.92rem;
+  width: 100%;
+  transition: var(--transition);
+}
+.TMS-input:focus { outline: none; border-color: var(--primary-color); box-shadow: 0 0 10px rgba(0,212,240,0.14); }
+.TMS-input-sm { max-width: 110px; }
+
+.TMS-input-group { display: flex; flex-direction: column; gap: 6px; width: 100%; }
+.TMS-input-group label { color: var(--light-dim); font-size: 0.8rem; font-weight: 500; }
+
+/* Edit form */
+.TMS-task-edit-form { display: flex; flex-direction: column; gap: 12px; }
+.TMS-edit-controls { display: flex; gap: 12px; flex-wrap: wrap; align-items: flex-end; }
+.TMS-edit-input-group { display: flex; flex-direction: column; gap: 6px; flex: 1; min-width: 120px; }
+.TMS-edit-input-group label { color: var(--light-dim); font-size: 0.8rem; font-weight: 500; }
+.TMS-edit-actions { display: flex; gap: 8px; }
+
+/* Empty state */
+.TMS-empty-state {
+  color: var(--secondary-color);
+  text-align: center;
+  padding: 36px 20px;
+  font-style: italic;
+  opacity: 0.75;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Floating add button - ensure visible above scroll area */
+.TMS-floating-btn {
+  position: sticky; /* better on some containers; fallback to fixed if parent's overflow allows */
+  bottom: 24px;
+  right: 24px;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  border: none;
+  color: var(--light-text);
+  font-size: 1.45rem;
+  cursor: pointer;
+  box-shadow: 0 8px 28px rgba(0,0,0,0.45);
+  transition: var(--transition);
+  z-index: 1100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* If the parent container's positioning prevents sticky, fallback style (fixed) */
+.TMS-list .TMS-floating-btn { position: absolute; bottom: 18px; right: 18px; }
+
+.TMS-floating-btn:hover { transform: scale(1.05) rotate(15deg); box-shadow: 0 10px 30px rgba(0, 212, 240, 0.15); }
+
+/* Inline form area */
+.TMS-task-form-inline {
+  margin-top: 12px;
+  z-index: 100;
+  width: 100%;
+}
+
+/* Form layout */
+.TMS-form-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; padding-bottom:10px; border-bottom:1px solid rgba(255,255,255,0.06); }
+.TMS-form-header h4 { color: var(--primary-color); margin:0; font-size:1.1rem; }
+
+.TMS-form { display:flex; flex-direction:column; gap:12px; }
+.TMS-form-row { display:flex; gap:12px; flex-wrap:wrap; align-items:center; }
+.TMS-form-actions { display:flex; gap:12px; justify-content:flex-end; margin-top:8px; flex-wrap:wrap; }
+
+/* Responsive tweaks */
+@media (max-width: 768px) {
+  .TMS-list { margin: 10px; padding: 14px; }
+  .TMS-list-header { flex-direction: column; align-items: flex-start; }
+  .TMS-list-actions { width: 100%; justify-content: flex-start; margin-top: 8px; }
+  .TMS-task-header { flex-direction: column; align-items: stretch; }
+  .TMS-task-content { margin: 8px 0; }
+  .TMS-task-actions { justify-content: flex-end; margin-top: 8px; }
+  .TMS-task-meta { flex-direction: column; gap: 8px; }
+  .TMS-edit-controls { flex-direction: column; align-items: stretch; }
+  .TMS-form-row { flex-direction: column; gap: 10px; }
+  .TMS-form-actions { justify-content: stretch; }
+  .TMS-form-actions .TMS-btn { flex: 1; text-align:center; }
+
+  /* reduce max height for smaller screens */
+  .TMS-task-list { max-height: calc(55vh - 160px); }
+  .TMS-floating-btn { bottom: 16px; right: 16px; width: 50px; height: 50px; font-size: 1.25rem; }
+}
+
+@media (max-width: 480px) {
+  .TMS-list-title { font-size: 1.15rem; }
+  .TMS-btn { padding: 6px 10px; font-size: 0.82rem; }
+  .TMS-task { padding: 10px; }
+  .TMS-task-content { font-size: 0.92rem; }
+  .TMS-task-timer { font-size: 0.8rem; padding: 4px 8px; }
+  .TMS-form-header h4 { font-size: 1rem; }
+
+  /* further reduce height on tiny screens */
+  .TMS-task-list { max-height: calc(50vh - 140px); }
+}
+
+/* ------------------------------
+   Task Edit Controls (improved)
+   ------------------------------ */
+
+/* Support both the old/new classnames used in JSX */
+.edit-controls,
+.TMS-edit-controls {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  padding: 10px;
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.04);
+  border-radius: 10px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.35);
+  transition: var(--transition);
+  margin-top: 8px;
+}
+
+/* Make edit-controls more compact on small screens */
+@media (max-width: 480px) {
+  .edit-controls,
+  .TMS-edit-controls {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+
+/* Inputs inside edit area inherit TMS-input but with sizes */
+.edit-controls .TMS-input,
+.TMS-edit-controls .TMS-input,
+.edit-controls input[type="text"],
+.TMS-edit-controls input[type="text"],
+.edit-controls input[type="number"],
+.TMS-edit-controls input[type="number"] {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.09);
+  padding: 8px 10px;
+  border-radius: 8px;
+  color: var(--light-text);
+  font-size: 0.92rem;
+  transition: var(--transition);
+  min-width: 120px;       /* ensures a usable click/typing area */
+  max-width: 320px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Number input narrower by default (minutes field) */
+.edit-controls input[type="number"],
+.TMS-edit-controls input[type="number"] {
+  max-width: 110px;
+  min-width: 80px;
+  text-align: center;
+}
+
+/* If you want a dedicated smaller input class in JSX, this helps */
+.edit-controls .edit-small,
+.TMS-edit-controls .edit-small {
+  max-width: 110px;
+  min-width: 80px;
+}
+
+/* Buttons in the edit row */
+.edit-controls .TMS-btn,
+.TMS-edit-controls .TMS-btn {
+  padding: 8px 12px;
+  font-size: 0.9rem;
+  border-radius: 8px;
+  white-space: nowrap;
+}
+
+/* Make primary/save button stand out and align */
+.edit-controls .TMS-btn-primary,
+.TMS-edit-controls .TMS-btn-primary {
+  background: linear-gradient(135deg, var(--primary-color), #0099BC);
+  color: var(--light-text);
+  border: none;
+  box-shadow: 0 6px 18px rgba(0,212,240,0.08);
+}
+
+/* Danger/cancel button */
+.edit-controls .TMS-btn-danger,
+.TMS-edit-controls .TMS-btn-danger {
+  background: linear-gradient(135deg, var(--danger-color), var(--secondary-color));
+  color: var(--light-text);
+  border: none;
+}
+
+/* Provide a subtle hover / focus state for inputs inside edit controls */
+.edit-controls .TMS-input:focus,
+.TMS-edit-controls .TMS-input:focus,
+.edit-controls input:focus,
+.TMS-edit-controls input:focus {
+  outline: none;
+  box-shadow: 0 0 10px rgba(0,212,240,0.09);
+  border-color: var(--primary-color);
+}
+
+/* Keep edit row from overflowing long text by forcing inputs to shrink first */
+.edit-controls .TMS-input,
+.TMS-edit-controls .TMS-input {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+/* Special case: when space is limited, push buttons to new row */
+@media (max-width: 640px) {
+  .edit-controls .TMS-btn,
+  .TMS-edit-controls .TMS-btn {
+    width: 100%;
+  }
+}
+
+/* Accessibility: increase hit area for small icons */
+.edit-controls .TMS-btn-icon,
+.TMS-edit-controls .TMS-btn-icon {
+  min-width: 44px;
+  min-height: 36px;
+  padding: 8px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Small visual polish */
+.edit-controls .TMS-input::placeholder,
+.TMS-edit-controls .TMS-input::placeholder {
+  color: rgba(255,255,255,0.5);
+}
+
+
+/* Add to your ListContainer.css */
+.TMS-list.drag-over {
+  /* background-color: #f0f9ff; */
+  border: 2px dashed #3b82f6;
+}
+
+.TMS-task {
+  cursor: grab;
+  transition: transform 0.2s ease;
+}
+
+.TMS-task:active {
+  cursor: grabbing;
+  transform: scale(0.98);
+}

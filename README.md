@@ -1,70 +1,108 @@
-# Getting Started with Create React App
+# 📌 Smarty-Dash  
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+**Smarty-Dash** is a **MERN stack-based Task & Project Management System**.  
+It provides **Task Management, Project Tracking, Calendar Integration, User Authentication with OTP, Timers, and Customizable Settings** — all in one platform.  
 
-## Available Scripts
+---
 
-In the project directory, you can run:
+## 🚀 Features  
 
-### `npm start`
+- 🔑 **User Authentication**  
+  - Secure login & registration with OTP verification  
+  - Forgot / Reset password flow  
+  - JWT-based session management  
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- ✅ **Task Management**  
+  - Create, edit, and delete tasks  
+  - Set due dates & assign tasks to users  
+  - Mark tasks as complete / undo  
+  - Drag & drop between lists  
+  - Built-in task timer (start, pause, auto-finish)  
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- 📂 **Project Management**  
+  - Create & manage multiple projects  
+  - View project-specific tasks  
+  - Assign collaborators  
 
-### `npm test`
+- 📅 **Calendar Integration**  
+  - Monthly task view  
+  - Highlight tasks by due date  
+  - Navigate across months  
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- ⚙️ **Settings Page**  
+  - Light/Dark/Custom theme support  
+  - Profile and feedback management  
 
-### `npm run build`
+- 🖥️ **Dashboard**  
+  - Personalized greeting  
+  - Quick access to Projects, Calendar, and Settings  
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+---
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## 🛠️ Tech Stack  
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- **Frontend:** React.js (Hooks, React Router, Custom CSS)  
+- **Backend:** Node.js, Express.js  
+- **Database:** MongoDB (via Mongoose)  
+- **Authentication:** JWT + OTP (Nodemailer)  
+- **Utilities:** Axios, bcryptjs, morgan  
 
-### `npm run eject`
+---
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## 🔑 Environment Variables  
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+Create a `.env` file in the **backend root**:  
 
-## Learn More
+```env
+PORT=5000
+MONGODB_URI=mongodb://127.0.0.1:27017/smarty
+JWT_SECRET=mySuperSecret123!
+EMAIL_USER=your-email@gmail.com
+EMAIL_PASS=your-app-password
+NODE_ENV=development
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+> ⚠️ Use a Gmail **App Password** for `EMAIL_PASS` (regular Gmail password will not work).  
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+---
 
-### Code Splitting
+## ⚙️ Installation & Setup  
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+### 1️⃣ Clone Repository  
+```bash
+git clone https://github.com/rohilsavliya09/Smarty_Dash.git
+cd smarty-dash
+```
 
-### Analyzing the Bundle Size
+### 2️⃣ Backend Setup  
+```bash
+cd Connection
+node Server.js
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+### 3️⃣ Frontend Setup  
+```bash
+npm install
+npm start
+```
 
-### Making a Progressive Web App
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+## 🧪 Usage  
 
-### Advanced Configuration
+- Open **http://localhost:3000/** in your browser  
+- Register / Login with OTP verification  
+- Create new Projects and Tasks  
+- Use the Dashboard for quick navigation  
+- View tasks and deadlines in the Calendar  
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+---
 
-### Deployment
+## 👨‍💻 Author  
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+Developed by **Rohil Savaliya (Smarty-Dash Project)** 💡  
 
-### `npm run build` fails to minify
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+A modern MERN stack Task & Project Management System with secure OTP authentication, smart task scheduling, drag-and-drop workflow, calendar integration, real-time timers, and customizable themes.
