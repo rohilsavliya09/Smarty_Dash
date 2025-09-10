@@ -104,5 +104,3 @@ npm start
 Developed by **Rohil Savaliya (Smarty-Dash Project)** 💡  
 
 
-
-A modern MERN stack Task & Project Management System with secure OTP authentication, smart task scheduling, drag-and-drop workflow, calendar integration, real-time timers, and customizable themes.
